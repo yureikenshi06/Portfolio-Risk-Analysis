@@ -33,24 +33,6 @@ pip install pandas numpy yfinance scipy matplotlib
 - **scipy**: Statistical functions
 - **matplotlib**: Data visualization
 
-## 🔧 Installation
-
-1. Clone the repository:
-```bash
-git clone https://github.com/yourusername/quantitative-risk-analytics.git
-cd quantitative-risk-analytics
-```
-
-2. Install dependencies:
-```bash
-pip install -r requirements.txt
-```
-
-3. Run the application:
-```bash
-python var_analyzer.py
-```
-
 ##  Usage
 
 ### Interactive Mode
