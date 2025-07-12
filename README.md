@@ -1,162 +1,155 @@
-# Portfolio-Risk-Analysis
+# Professional VaR Calculator
 
-# Quantitative Risk Analytics Platform
+A comprehensive, modular Value at Risk (VaR) calculator for portfolio risk management.
 
-A comprehensive Value at Risk (VaR) analysis system for professional portfolio risk management. This tool implements multiple VaR methodologies with backtesting, stress testing, and advanced risk metrics calculation.
+## Features
 
-##  Features
+- **Historical VaR**: Based on actual portfolio return distributions
+- **Parametric VaR**: Using normal distribution assumptions
+- **Professional Visualizations**: Comprehensive risk analysis charts
+- **Flexible Portfolio Management**: Support for custom weights
+- **Export Capabilities**: CSV export for further analysis
+- **Modular Design**: Clean, maintainable codebase
 
-### Core Risk Analysis
-- **Multi-Method VaR Calculation**: Historical, Parametric, and Monte Carlo simulation
-- **Model Validation**: Backtesting with violation rate analysis
-- **Stress Testing**: Scenario analysis for extreme market conditions
-- **Risk Metrics**: Sharpe ratio, maximum drawdown, CVaR (Expected Shortfall)
-- **Distribution Analysis**: Skewness and kurtosis detection for tail risk assessment
+## Quick Start
 
-### Advanced Analytics
-- **Real-time Data Integration**: Yahoo Finance API for live market data
-- **Interactive Visualizations**: 4-panel risk dashboard with charts
-- **Automated Risk Assessment**: Risk level classification and recommendations
-- **Stop-Loss Recommendations**: Dynamic stop-loss calculations based on VaR
-- **Comprehensive Reporting**: Professional risk analysis reports
-
-##  Requirements
+### Installation
 
 ```bash
-pip install pandas numpy yfinance scipy matplotlib
+pip install -r requirements.txt
 ```
 
-### Dependencies
-- **pandas**: Data manipulation and analysis
-- **numpy**: Numerical computing
-- **yfinance**: Financial data retrieval
-- **scipy**: Statistical functions
-- **matplotlib**: Data visualization
+### Basic Usage
 
-##  Usage
-
-### Interactive Mode
-```bash
-python var_analyzer.py
-```
-
-Follow the prompts to:
-1. Enter stock symbol (e.g., AAPL, TSLA, MSFT)
-2. Input portfolio value
-3. Select analysis period (1y, 2y, 5y, max)
-4. Choose to display visualizations
-
-### Programmatic Usage
 ```python
-from var_analyzer import VaRAnalyzer
+from var_calculator import quick_analysis
 
-# Initialize analyzer
-analyzer = VaRAnalyzer()
+# Single stock analysis
+calculator = quick_analysis(
+    tickers='AAPL',
+    start_date='2023-01-01',
+    portfolio_value=50000
+)
 
-# Fetch data
-analyzer.fetch_data('AAPL', '1y')
+# Portfolio analysis
+calculator = quick_analysis(
+    tickers='AAPL MSFT GOOGL',
+    weights=[0.4, 0.3, 0.3],
+    start_date='2022-01-01',
+    confidence=0.95
+)
+```
+
+### Command Line Interface
+
+```bash
+# Interactive mode
+python -m var_calculator.cli --interactive
+
+# Direct analysis
+python -m var_calculator.cli -t "AAPL MSFT GOOGL" -w "0.4,0.3,0.3" --confidence 0.95
+```
+
+## Project Structure
+
+```
+var_calculator/
+├── __init__.py          # Package initialization
+├── config.py            # Configuration settings
+├── var_calculator.py    # Core VaR calculation engine
+├── utils.py             # Utility functions
+├── visualizer.py        # Visualization module
+├── reporter.py          # Report generation
+├── cli.py               # Command line interface
+├── main.py              # Main entry point
+└── requirements.txt     # Dependencies
+```
+
+## API Reference
+
+### VaRCalculator Class
+
+```python
+calculator = VaRCalculator(
+    tickers=['AAPL', 'MSFT'],
+    start_date='2020-01-01',
+    end_date='2023-12-31',
+    window=20,
+    confidence=0.95,
+    portfolio_value=100000,
+    weights=[0.6, 0.4]
+)
 
 # Calculate VaR
-var_results = analyzer.calculate_var(confidence=95, horizon=1)
-print(var_results)
+success = calculator.calculate_var()
 
-# Generate comprehensive report
-analyzer.generate_report('AAPL', portfolio_value=1000000)
-
-# Create visualizations
-analyzer.create_visualization('AAPL')
+# Get results
+results = calculator.get_results()
 ```
 
-##  Output Examples
+### Quick Analysis Function
 
-### Console Report
-```
-============================================================
-RISK ANALYSIS REPORT - AAPL
-============================================================
+```python
+from var_calculator import quick_analysis
 
-PORTFOLIO OVERVIEW
-Portfolio Value: $1,000,000.00
-Analysis Period: 252 trading days
-Daily Volatility: 2.34%
-Annualized Volatility: 37.15%
-Sharpe Ratio: 0.85
-Max Drawdown: -28.45%
-
-VALUE AT RISK (95% Confidence)
-Historical  : $  23,400 (-2.34%)
-Parametric  : $  25,100 (-2.51%)
-Monte Carlo : $  24,200 (-2.42%)
-
-STRESS TEST RESULTS
-Market Crash   : $  200,000 (-20.0%)
-Severe Recession: $  350,000 (-35.0%)
-Black Swan     : $  500,000 (-50.0%)
-Mild Correction: $  100,000 (-10.0%)
-
-RISK ASSESSMENT
-MODERATE RISK - Monitor closely
-Recommended Stop Loss: 3.6%
+calculator = quick_analysis(
+    tickers='AAPL MSFT GOOGL',
+    weights=[0.4, 0.3, 0.3],
+    start_date='2022-01-01',
+    window=30,
+    confidence=0.99,
+    portfolio_value=500000,
+    show_plots=True,
+    export_file='analysis_results.csv'
+)
 ```
 
-### Visualization Dashboard
-- **Price Movement**: Historical price chart
-- **Returns Distribution**: Histogram with VaR markers
-- **VaR Comparison**: Bar chart comparing all three methods
-- **Drawdown Analysis**: Underwater equity curve
+### Batch Analysis
 
-##  Methodology
+```python
+from var_calculator import batch_analysis
 
-### VaR Calculation Methods
+portfolios = [
+    {'tickers': 'AAPL MSFT', 'weights': [0.6, 0.4]},
+    {'tickers': 'GOOGL AMZN', 'weights': [0.5, 0.5]}
+]
 
-1. **Historical VaR**
-   - Uses actual historical return distribution
-   - No distributional assumptions
-   - Reflects actual market behavior
-
-2. **Parametric VaR**
-   - Assumes normal distribution
-   - Uses mean and standard deviation
-   - Faster computation
-
-3. **Monte Carlo VaR**
-   - Simulates 10,000 random scenarios
-   - Flexible distributional assumptions
-   - Robust for complex portfolios
-
-### Risk Metrics
-
-- **Sharpe Ratio**: Risk-adjusted return measure
-- **Maximum Drawdown**: Largest peak-to-trough decline
-- **CVaR (Expected Shortfall)**: Average loss beyond VaR threshold
-- **Volatility**: Annualized standard deviation
-- **Skewness**: Asymmetry of return distribution
-- **Kurtosis**: Tail heaviness measure
-
-##  Model Validation
-
-### Backtesting Process
-- Uses rolling 252-day windows
-- Tests last 60 trading days
-- Calculates violation rates
-- Compares against expected rates
-- Pass/Fail assessment
-
-### Stress Testing Scenarios
-- **Market Crash**: -20% shock
-- **Severe Recession**: -35% shock
-- **Black Swan Event**: -50% shock
-- **Mild Correction**: -10% shock
-
-## 📈 Risk Assessment Framework
-
-### Risk Level Classification
-- **LOW RISK**: VaR < 2% (Acceptable)
-- **MODERATE RISK**: 2% ≤ VaR ≤ 5% (Monitor closely)
-- **HIGH RISK**: VaR > 5% (Consider position reduction)
-
-### Stop-Loss Calculation
-```
-Recommended Stop Loss = Average VaR × 1.5
+results = batch_analysis(
+    portfolios,
+    start_date='2023-01-01',
+    confidence=0.95
+)
 ```
 
+## Configuration
+
+Default settings can be modified in `config.py`:
+
+```python
+DEFAULT_CONFIG = {
+    'start_date': '2020-01-01',
+    'window': 20,
+    'confidence': 0.95,
+    'portfolio_value': 100000,
+    'trading_days': 252
+}
+```
+
+## Output
+
+The calculator provides:
+
+1. **Console Report**: Detailed risk metrics and interpretation
+2. **Visualizations**: 4-panel chart showing:
+   - Historical VaR distribution
+   - Parametric VaR with normal overlay
+   - Portfolio returns time series
+   - VaR methods comparison
+3. **CSV Export**: Time series data for further analysis
+
+## Risk Metrics
+
+- **Historical VaR**: Percentile-based loss estimate
+- **Parametric VaR**: Normal distribution-based estimate
+- **Portfolio Volatility**: Daily and annualized
+- **Risk Level Assessment**: Low/Moderate/High classification
