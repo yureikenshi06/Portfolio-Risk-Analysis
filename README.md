@@ -1,4 +1,5 @@
-# Professional VaR Calculator
+# Portfolio Risk Analysis
+
 
 A comprehensive, modular Value at Risk (VaR) calculator for portfolio risk management.
 
