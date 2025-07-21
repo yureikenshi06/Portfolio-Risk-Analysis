@@ -1,4 +1,3 @@
-"""Visualization module for VaR Calculator"""
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -6,8 +5,6 @@ from scipy.stats import norm
 
 
 class VaRVisualizer:
-    """Professional VaR visualization class"""
-
     def __init__(self, calculator):
         self.calculator = calculator
 
@@ -38,7 +35,6 @@ class VaRVisualizer:
         plt.show()
 
     def _plot_historical_var(self, ax, returns_dollar):
-        """Plot historical VaR distribution"""
         ax.hist(returns_dollar, bins=40, density=True, alpha=0.7,
                 color='lightblue', edgecolor='black', linewidth=0.5)
         ax.axvline(-self.calculator.historical_var, color='red', linestyle='--',
@@ -50,7 +46,6 @@ class VaRVisualizer:
         ax.grid(True, alpha=0.3)
 
     def _plot_parametric_var(self, ax, returns_dollar):
-        """Plot parametric VaR with normal overlay"""
         ax.hist(returns_dollar, bins=40, density=True, alpha=0.7,
                 color='lightgreen', edgecolor='black', linewidth=0.5)
 
@@ -78,7 +73,6 @@ class VaRVisualizer:
         ax.grid(True, alpha=0.3)
 
     def _plot_var_comparison(self, ax):
-        """Plot VaR methods comparison"""
         methods = ['Historical', 'Parametric']
         values = [self.calculator.historical_var, self.calculator.parametric_var]
         colors = ['red', 'orange']

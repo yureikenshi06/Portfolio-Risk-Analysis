@@ -4,7 +4,6 @@ __version__ = "1.0.0"
 __author__ = "VaR Analytics Team"
 __description__ = "Professional Value at Risk Calculator"
 
-# Import main classes and functions
 from .var_calculator import VaRCalculator
 from .visualizer import VaRVisualizer
 from .reporter import VaRReporter

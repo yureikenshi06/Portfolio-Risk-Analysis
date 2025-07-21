@@ -1,5 +1,3 @@
-"""Utility functions for VaR Calculator"""
-
 import pandas as pd
 from datetime import datetime
 from typing import List, Optional
@@ -9,13 +7,10 @@ from .config import VALIDATION_LIMITS
 def validate_inputs(tickers: List[str], start_date: str, end_date: str,
                     window: int, confidence: float, portfolio_value: float,
                     weights: Optional[List[float]] = None) -> tuple[bool, str]:
-    """Validate input parameters"""
 
-    # Validate tickers
     if not tickers or not all(isinstance(t, str) for t in tickers):
         return False, "Invalid ticker symbols"
 
-    # Validate dates
     try:
         pd.to_datetime(start_date)
         pd.to_datetime(end_date)
@@ -45,17 +40,14 @@ def validate_inputs(tickers: List[str], start_date: str, end_date: str,
 
 
 def format_currency(value: float) -> str:
-    """Format currency values"""
     return f"${value:,.2f}"
 
 
 def format_percentage(value: float) -> str:
-    """Format percentage values"""
     return f"{value:.2%}"
 
 
 def export_results(calculator, filename: str = None) -> str:
-    """Export results to CSV"""
     if filename is None:
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         filename = f"var_analysis_{timestamp}.csv"

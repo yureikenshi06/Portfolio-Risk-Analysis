@@ -1,5 +1,3 @@
-"""Core VaR Calculator Class"""
-
 import numpy as np
 import pandas as pd
 import yfinance as yf
@@ -10,8 +8,6 @@ from .config import DEFAULT_CONFIG
 
 
 class VaRCalculator:
-    """Professional Value at Risk Calculator"""
-
     def __init__(self, tickers: List[str], start_date: str, end_date: str,
                  window: int = None, confidence: float = None,
                  portfolio_value: float = None, weights: Optional[List[float]] = None):
@@ -37,7 +33,6 @@ class VaRCalculator:
         self.parametric_var = None
 
     def load_data(self) -> bool:
-        """Load and process market data"""
         try:
             data = yf.download(self.tickers, start=self.start_date,
                                end=self.end_date, progress=False)
@@ -63,7 +58,6 @@ class VaRCalculator:
             return False
 
     def calculate_var(self) -> bool:
-        """Calculate both Historical and Parametric VaR"""
         if not self.load_data():
             return False
 
@@ -81,7 +75,6 @@ class VaRCalculator:
         return True
 
     def get_results(self) -> dict:
-        """Return VaR results"""
         if self.historical_var is None or self.parametric_var is None:
             return {}
 

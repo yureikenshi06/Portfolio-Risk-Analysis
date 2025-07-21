@@ -1,5 +1,3 @@
-"""Command line interface for VaR Calculator"""
-
 import argparse
 from datetime import datetime
 from .var_calculator import VaRCalculator
@@ -9,7 +7,6 @@ from .utils import validate_inputs, export_results
 
 
 def get_user_input() -> dict:
-    """Interactive user input collection"""
     print("\n" + "=" * 50)
     print("INTERACTIVE VaR CALCULATOR")
     print("=" * 50)
@@ -51,7 +48,6 @@ def get_user_input() -> dict:
 
 
 def parse_arguments():
-    """Parse command line arguments"""
     parser = argparse.ArgumentParser(description='Professional VaR Calculator')
 
     parser.add_argument('-t', '--tickers', default='AAPL MSFT GOOGL',

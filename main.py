@@ -112,7 +112,6 @@ def demo_portfolio():
 
 
 def demo_batch():
-    """Demo: Batch analysis"""
     portfolios = [
         {'tickers': 'AAPL MSFT', 'weights': [0.6, 0.4]},
         {'tickers': 'GOOGL AMZN TSLA', 'weights': [0.4, 0.3, 0.3]},
